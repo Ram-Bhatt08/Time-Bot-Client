@@ -28,17 +28,23 @@ AI Chat Assistant
 
 🤖 Supports multiple AI providers (Claude & OpenAI)
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Profile Management
 
 👤 View personal and account information
 
 ✏️ Edit profile including avatar, phone number, and address
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Navigation
 
 🧭 Responsive navigation bar for quick access
 
 🔒 Logout with confirmation modal
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 🛠️ Technologies Used
 
@@ -56,6 +62,8 @@ HTTP Requests: Axios / Fetch API
 
 Storage: localStorage for persisting chat and user data
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ⚙️ Getting Started
 Prerequisites
 
@@ -71,16 +79,21 @@ npm install
 Run the Project
 npm run dev
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 The application will run at http://localhost:5173.
 
 Make sure the backend server is running at http://localhost:5000.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 🔗 Backend
 
 This is the frontend repository. Full functionality requires the corresponding backend.
 
 Ensure the backend is set up and API endpoints are configured in the frontend.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 📂 Project Structure
 
@@ -115,6 +128,7 @@ Time-Bot-Frontend/ <br>
 ├── package.json <br>
 └── vite.config.js <br>
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 🎮 How It Works
 
@@ -128,6 +142,8 @@ Payment & ID: Pay fees and receive admin IDs after successful payment.
 
 Profile Management: View & edit profile, manage appointments.
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 📝 Future Enhancements
 
 🌙 Dark mode support
@@ -139,6 +155,8 @@ Profile Management: View & edit profile, manage appointments.
 📱 Enhanced mobile responsiveness
 
 💳 Integration with real payment gateways
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 🤝 Contributing
 
@@ -153,6 +171,8 @@ Commit your changes: git commit -m 'Add some AmazingFeature'
 Push to the branch: git push origin feature/AmazingFeature
 
 Open a Pull Request
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 👨‍💻 Author
 
