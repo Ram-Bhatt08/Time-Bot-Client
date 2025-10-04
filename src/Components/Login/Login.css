@@ -1,0 +1,135 @@
+/* Login.css */
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: #f0f4f8;
+  margin: 0;
+  padding: 0;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.login-box {
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  width: 380px;
+  max-width: 90%;
+  text-align: center;
+}
+
+.login-box h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.login-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-box input {
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-box input:focus {
+  border-color: #007bff;
+}
+
+.password-field {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+button[type="submit"]:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+.social-login {
+  margin: 20px 0 10px;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.social-buttons button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.social-buttons button:hover {
+  opacity: 0.9;
+}
+
+.social-buttons button:first-child {
+  background-color: #db4437;
+  color: #fff;
+}
+
+.social-buttons button:last-child {
+  background-color: #4267b2;
+  color: #fff;
+}
+
+.toggle-link {
+  color: #007bff;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.toggle-link:hover {
+  text-decoration: underline;
+}
+
+p {
+  font-size: 14px;
+  color: #555;
+}
+

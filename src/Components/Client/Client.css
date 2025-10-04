@@ -1,0 +1,207 @@
+/* ---------- Client.css ---------- */
+
+/* ---------- Container ---------- */
+.vip-booking-container {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ---------- VIP Selection Page ---------- */
+.vip-selection-page h1 {
+  text-align: center;
+  font-size: 28px;
+  color: #1f2937;
+  margin-bottom: 20px;
+}
+
+/* ---------- Search Input ---------- */
+.search-input {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 25px auto;
+  padding: 10px 15px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+}
+
+/* ---------- VIP Grid ---------- */
+.vip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* ---------- VIP Card ---------- */
+.vip-card {
+  background: #fff;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.vip-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.vip-card h3 {
+  font-size: 20px;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.vip-card p,
+.vip-card div {
+  font-size: 14px;
+  color: #4b5563;
+  margin: 3px 0;
+}
+
+/* ---------- VIP Detail Page ---------- */
+.vip-detail-page {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 14px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vip-detail-page button {
+  padding: 10px 16px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  background: #3b82f6;
+  color: #fff;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+  margin-top: 10px;
+}
+
+.vip-detail-page button:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+
+/* ---------- Back Button ---------- */
+.vip-detail-page button:first-of-type {
+  background: #6b7280;
+}
+
+.vip-detail-page button:first-of-type:hover {
+  background: #4b5563;
+}
+
+/* ---------- Modal Styles ---------- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(31, 41, 55, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.modal-content h2 {
+  font-size: 24px;
+  color: #111827;
+  margin-bottom: 15px;
+}
+
+.modal-content p {
+  font-size: 16px;
+  color: #4b5563;
+  margin-bottom: 20px;
+}
+
+.modal-content button {
+  padding: 10px 16px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  margin: 5px;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.modal-content button:first-of-type {
+  background: #10b981;
+  color: #fff;
+}
+
+.modal-content button:first-of-type:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+.modal-content button:last-of-type {
+  background: #ef4444;
+  color: #fff;
+}
+
+.modal-content button:last-of-type:hover {
+  background: #b91c1c;
+  transform: translateY(-2px);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .vip-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
+
+  .vip-detail-page {
+    padding: 20px;
+  }
+
+  .vip-detail-page button {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .modal-content {
+    padding: 20px;
+  }
+
+  .modal-content h2 {
+    font-size: 20px;
+  }
+
+  .modal-content p {
+    font-size: 14px;
+  }
+}
