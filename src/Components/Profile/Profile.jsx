@@ -6,26 +6,36 @@ function Profile() {
   const [user, setUser] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({});
+  const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("token");
+
+  // ✅ Use your deployed backend
+  const API_BASE = "https://time-bot-backend-2.onrender.com/api";
 
   // Fetch user profile
   useEffect(() => {
     const fetchProfile = async () => {
+      setLoading(true);
       try {
-        const res = await fetch("http://localhost:5000/api/profile", {
+        const res = await fetch(`${API_BASE}/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
+
         if (res.ok) {
           setUser(data.user);
           setFormData(data.user);
         } else {
-          alert(data.message || "Failed to fetch profile");
+          alert(data.message || "❌ Failed to fetch profile");
         }
       } catch (err) {
-        alert("Error fetching profile");
+        console.error("Profile fetch error:", err);
+        alert("⚠️ Error fetching profile. Please try again later.");
+      } finally {
+        setLoading(false);
       }
     };
+
     if (token) fetchProfile();
   }, [token]);
 
@@ -35,7 +45,7 @@ function Profile() {
 
   const handleSave = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/profile", {
+      const res = await fetch(`${API_BASE}/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -43,16 +53,18 @@ function Profile() {
         },
         body: JSON.stringify(formData),
       });
+
       const data = await res.json();
       if (res.ok) {
         setUser(data.user);
         setIsEditing(false);
-        alert("Profile updated successfully!");
+        alert("✅ Profile updated successfully!");
       } else {
-        alert(data.message || "Failed to update profile");
+        alert(data.message || "❌ Failed to update profile");
       }
     } catch (err) {
-      alert("Error updating profile");
+      console.error("Profile update error:", err);
+      alert("⚠️ Error updating profile. Please try again later.");
     }
   };
 
@@ -61,7 +73,27 @@ function Profile() {
     setIsEditing(false);
   };
 
-  if (!user) return <p>Loading profile...</p>;
+  if (loading) {
+    return (
+      <>
+        <Nav />
+        <div className="profile-page">
+          <p className="loading-text">⏳ Loading profile...</p>
+        </div>
+      </>
+    );
+  }
+
+  if (!user) {
+    return (
+      <>
+        <Nav />
+        <div className="profile-page">
+          <p className="error-text">⚠️ Unable to load user profile. Please log in again.</p>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -73,38 +105,56 @@ function Profile() {
               <img src={formData.avatar} alt="avatar" className="avatar-img" />
             ) : (
               <div className="avatar-initials">
-                {user.name.split(" ").map((n) => n[0]).join("")}
+                {user.name
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")
+                  .toUpperCase()}
               </div>
             )}
             {isEditing && (
               <>
-                <label htmlFor="avatar-upload" className="avatar-upload-btn">📷</label>
+                <label htmlFor="avatar-upload" className="avatar-upload-btn">
+                  📷
+                </label>
                 <input
                   type="file"
                   id="avatar-upload"
                   style={{ display: "none" }}
                   onChange={(e) => {
                     const file = e.target.files[0];
-                    if (file) setFormData({ ...formData, avatar: URL.createObjectURL(file) });
+                    if (file)
+                      setFormData({
+                        ...formData,
+                        avatar: URL.createObjectURL(file),
+                      });
                   }}
                 />
               </>
             )}
           </div>
+
           <div className="profile-header-info">
             <h1>{formData.name}</h1>
             <p className="profile-role">{user.role}</p>
             <p className="profile-email">{user.email}</p>
             <p className="profile-id">Client ID: {user.clientId}</p>
           </div>
+
           <div className="profile-header-actions">
             {isEditing ? (
               <>
-                <button className="btn-save" onClick={handleSave}>💾 Save</button>
-                <button className="btn-cancel" onClick={handleCancel}>❌ Cancel</button>
+                <button className="btn-save" onClick={handleSave}>
+                  💾 Save
+                </button>
+                <button className="btn-cancel" onClick={handleCancel}>
+                  ❌ Cancel
+                </button>
               </>
             ) : (
-              <button className="btn-edit" onClick={handleEditToggle}>✏️ Edit Profile</button>
+              <button className="btn-edit" onClick={handleEditToggle}>
+                ✏️ Edit Profile
+              </button>
             )}
           </div>
         </div>
@@ -121,7 +171,9 @@ function Profile() {
                     value={formData.name}
                     onChange={(e) => handleChange("name", e.target.value)}
                   />
-                ) : <p>{user.name}</p>}
+                ) : (
+                  <p>{user.name}</p>
+                )}
               </div>
 
               <div className="info-item">
@@ -137,7 +189,9 @@ function Profile() {
                     value={formData.phone || ""}
                     onChange={(e) => handleChange("phone", e.target.value)}
                   />
-                ) : <p>{user.phone}</p>}
+                ) : (
+                  <p>{user.phone}</p>
+                )}
               </div>
 
               <div className="info-item full-width">
@@ -148,7 +202,9 @@ function Profile() {
                     onChange={(e) => handleChange("address", e.target.value)}
                     rows={3}
                   />
-                ) : <p>{user.address || "-"}</p>}
+                ) : (
+                  <p>{user.address || "-"}</p>
+                )}
               </div>
             </div>
           </div>

@@ -14,12 +14,16 @@ function Client() {
   const [vips, setVips] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // ✅ Use deployed API base URL (fallback to localhost for dev)
+  const BASE_URL =
+    import.meta.env.VITE_API_URL || 'https://time-bot-backend-2.onrender.com';
+
   useEffect(() => {
     const fetchVIPs = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/admin/public/all');
+        const res = await axios.get(`${BASE_URL}/api/admin/public/all`);
         console.log('Fetched admins:', res.data.admins);
-        setVips(res.data.admins); // Use actual data from backend
+        setVips(res.data.admins || []);
       } catch (err) {
         console.error('Error fetching admins:', err);
       } finally {
@@ -27,7 +31,7 @@ function Client() {
       }
     };
     fetchVIPs();
-  }, []);
+  }, [BASE_URL]);
 
   const handleVIPSelect = (vip) => {
     setSelectedVIP(vip);
@@ -46,7 +50,10 @@ function Client() {
   };
 
   const formatCurrency = (amount) =>
-    new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(amount || 0);
+    new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+    }).format(amount || 0);
 
   if (loading) return <p>Loading admins...</p>;
   if (!vips.length) return <p>No admins found</p>;
@@ -74,7 +81,11 @@ function Client() {
                     vip.specialty?.toLowerCase().includes(searchTerm.toLowerCase())
                 )
                 .map((vip) => (
-                  <div key={vip.adminId} className="vip-card" onClick={() => handleVIPSelect(vip)}>
+                  <div
+                    key={vip.adminId}
+                    className="vip-card"
+                    onClick={() => handleVIPSelect(vip)}
+                  >
                     <h3>{vip.name}</h3>
                     <p>Specialty: {vip.specialty}</p>
                     <p>{vip.description}</p>
@@ -106,11 +117,7 @@ function Client() {
             <div className="modal-content">
               <h2>Payment Successful!</h2>
               {showAdminId && <p>Admin ID: {selectedVIP.adminId}</p>}
-              <button
-                onClick={() =>
-                  navigate(`/bot?adminId=${selectedVIP.adminId}`)
-                }
-              >
+              <button onClick={() => navigate(`/bot?adminId=${selectedVIP.adminId}`)}>
                 Chat with AI Assistant
               </button>
               <button onClick={() => setShowModal(false)}>Back</button>

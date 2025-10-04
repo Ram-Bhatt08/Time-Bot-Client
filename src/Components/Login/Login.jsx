@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
@@ -9,31 +9,40 @@ function Login() {
     email: "",
     phone: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const API_BASE = "http://localhost:5000/api/auth";
+  // ✅ Deployed backend base URL
+  const API_BASE = "https://time-bot-backend-2.onrender.com/api/auth";
 
+  // 🚀 If user already logged in, redirect to home
+  useEffect(() => {
+    const existingUser = localStorage.getItem("currentUser");
+    if (existingUser) navigate("/home");
+  }, [navigate]);
+
+  // ✍️ Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // 🧠 Handle login/signup submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
     if (isSignup && formData.password !== formData.confirmPassword) {
-      alert("❌ Passwords do not match");
+      alert("❌ Passwords do not match!");
       setIsLoading(false);
       return;
     }
 
-    const url = isSignup ? `${API_BASE}/signup` : `${API_BASE}/login`;
+    const endpoint = isSignup ? "/signup" : "/login";
     const payload = isSignup
       ? {
           name: formData.name,
@@ -47,21 +56,20 @@ function Login() {
         };
 
     try {
-      const response = await fetch(url, {
+      const res = await fetch(`${API_BASE}${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      const data = await response.json();
+      const data = await res.json();
 
-      if (!response.ok) {
-        alert(data.message || "❌ Something went wrong");
-        setIsLoading(false);
+      if (!res.ok) {
+        alert(data.message || "❌ Invalid credentials or server error.");
         return;
       }
 
-      // Save user info including clientId
+      // ✅ Save user info in localStorage
       localStorage.setItem("currentUser", JSON.stringify(data.user));
       localStorage.setItem("clientId", data.user.clientId);
       localStorage.setItem("token", data.token);
@@ -69,22 +77,23 @@ function Login() {
       alert(isSignup ? "🎉 Signup successful!" : "✅ Login successful!");
       navigate("/home");
     } catch (error) {
-      console.error("Login/Signup error:", error);
-      alert("❌ An error occurred. Please try again.");
+      console.error("Auth Error:", error);
+      alert("❌ Something went wrong. Please try again later.");
     } finally {
       setIsLoading(false);
     }
   };
 
+  // 🧩 Mock social login
   const handleSocialLogin = (provider) => {
-    alert(`Logging in with ${provider}...`);
-    navigate("/home");
+    alert(`🔗 Social login with ${provider} coming soon!`);
   };
 
   return (
     <div className="login-container">
       <div className="login-box">
         <h2>{isSignup ? "Sign Up" : "Login"}</h2>
+
         <form onSubmit={handleSubmit}>
           {isSignup && (
             <>
@@ -110,7 +119,7 @@ function Login() {
           <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="Email Address"
             value={formData.email}
             onChange={handleChange}
             required
@@ -127,8 +136,8 @@ function Login() {
             />
             <button
               type="button"
-              onClick={() => setShowPassword(!showPassword)}
               className="password-toggle"
+              onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? "🙈" : "👁️"}
             </button>
@@ -146,8 +155,10 @@ function Login() {
               />
               <button
                 type="button"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="password-toggle"
+                onClick={() =>
+                  setShowConfirmPassword(!showConfirmPassword)
+                }
               >
                 {showConfirmPassword ? "🙈" : "👁️"}
               </button>
@@ -155,7 +166,7 @@ function Login() {
           )}
 
           <button type="submit" disabled={isLoading}>
-            {isLoading ? "Loading..." : isSignup ? "Sign Up" : "Login"}
+            {isLoading ? "⏳ Please wait..." : isSignup ? "Sign Up" : "Login"}
           </button>
         </form>
 
@@ -171,9 +182,12 @@ function Login() {
           </div>
         </div>
 
-        <p>
+        <p className="toggle-text">
           {isSignup ? "Already have an account?" : "Don't have an account?"}{" "}
-          <span className="toggle-link" onClick={() => setIsSignup(!isSignup)}>
+          <span
+            className="toggle-link"
+            onClick={() => setIsSignup((prev) => !prev)}
+          >
             {isSignup ? "Login" : "Sign Up"}
           </span>
         </p>

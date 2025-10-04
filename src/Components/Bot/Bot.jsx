@@ -5,6 +5,10 @@ import "./Bot.css";
 function Bot() {
   const messagesEndRef = useRef(null);
 
+  // ✅ Use deployed API by default (can fall back to localhost for development)
+  const BASE_URL =
+    import.meta.env.VITE_API_URL || "https://time-bot-backend-2.onrender.com";
+
   // Load chat history from localStorage
   const [messages, setMessages] = useState(() => {
     const savedChats = localStorage.getItem("chatHistory");
@@ -47,17 +51,22 @@ function Bot() {
     setIsTyping(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/chat", {
+      const res = await fetch(`${BASE_URL}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMessage, clientId, provider }),
       });
+
       const data = await res.json();
       const botReply = data?.reply || "❌ Sorry, I couldn't understand that.";
       const botMsg = { sender: "bot", text: botReply, timestamp: new Date() };
       setMessages((prev) => [...prev, botMsg]);
     } catch (err) {
-      const errorMsg = { sender: "bot", text: `❌ Server error: ${err.message}`, timestamp: new Date() };
+      const errorMsg = {
+        sender: "bot",
+        text: `❌ Server error: ${err.message}`,
+        timestamp: new Date(),
+      };
       setMessages((prev) => [...prev, errorMsg]);
     } finally {
       setIsTyping(false);
@@ -98,11 +107,19 @@ function Bot() {
         {/* Chat Box */}
         <div className="chat-box">
           {messages.map((msg, idx) => (
-            <div key={idx} className={`message ${msg.sender === "user" ? "user-message" : "bot-message"}`}>
+            <div
+              key={idx}
+              className={`message ${
+                msg.sender === "user" ? "user-message" : "bot-message"
+              }`}
+            >
               <div className="message-content">
                 <p>{msg.text}</p>
                 <span className="message-time">
-                  {new Date(msg.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                  {new Date(msg.timestamp).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
                 </span>
               </div>
             </div>
@@ -111,7 +128,9 @@ function Bot() {
           {isTyping && (
             <div className="message bot-message">
               <div className="typing-indicator">
-                <span></span><span></span><span></span>
+                <span></span>
+                <span></span>
+                <span></span>
               </div>
             </div>
           )}
@@ -128,24 +147,54 @@ function Bot() {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
           />
-          <button onClick={handleSend} disabled={!input.trim()} className="send-button">Send</button>
+          <button
+            onClick={handleSend}
+            disabled={!input.trim()}
+            className="send-button"
+          >
+            Send
+          </button>
         </div>
 
         {/* Quick Actions */}
         <div className="quick-actions">
-          <button onClick={() => sendMessage("I want to book an appointment")}>Book Appointment</button>
-          <button onClick={() => sendMessage("I want to cancel an appointment")}>Cancel Appointment</button>
-          <button onClick={() => sendMessage("I want to reschedule an appointment")}>Reschedule Appointment</button>
-          <button onClick={() => sendMessage("Check VIP availability")}>Check VIP Free Time</button>
+          <button onClick={() => sendMessage("I want to book an appointment")}>
+            Book Appointment
+          </button>
+          <button onClick={() => sendMessage("I want to cancel an appointment")}>
+            Cancel Appointment
+          </button>
+          <button
+            onClick={() => sendMessage("I want to reschedule an appointment")}
+          >
+            Reschedule Appointment
+          </button>
+          <button onClick={() => sendMessage("Check VIP availability")}>
+            Check VIP Free Time
+          </button>
         </div>
 
         {/* Provider Switch */}
         <div className="provider-switch">
           <label>
-            <input type="radio" name="provider" value="claude" checked={provider === "claude"} onChange={() => setProvider("claude")} /> Claude
+            <input
+              type="radio"
+              name="provider"
+              value="claude"
+              checked={provider === "claude"}
+              onChange={() => setProvider("claude")}
+            />{" "}
+            Claude
           </label>
           <label>
-            <input type="radio" name="provider" value="openai" checked={provider === "openai"} onChange={() => setProvider("openai")} /> OpenAI
+            <input
+              type="radio"
+              name="provider"
+              value="openai"
+              checked={provider === "openai"}
+              onChange={() => setProvider("openai")}
+            />{" "}
+            OpenAI
           </label>
         </div>
       </div>
