@@ -1,42 +1,41 @@
-Time-Bot - Frontend
+🕒 Time-Bot - Frontend
 
-This repository contains the frontend code for Time-Bot, an AI-powered appointment scheduling platform that allows clients to book, cancel, and reschedule appointments with admins (VIPs), interact with an AI assistant, and manage their profile. Built using React and Vite, Time-Bot offers a seamless and intuitive user experience.
+Time-Bot is a modern AI-powered appointment scheduling platform that lets clients book, cancel, and reschedule appointments with admins (VIPs), interact with an AI assistant, and manage their profile. Built with React and Vite, Time-Bot delivers a seamless and intuitive user experience.
 
 🚀 Features
+Client Features
 
-Client Features:
+📅 Book appointments with admins (VIPs)
 
-Book appointments with admins (VIPs)
+📋 View and manage current & previous appointments
 
-View and manage current and previous appointments
+💬 Interact with AI Chat Assistant for booking, cancellation, or rescheduling
 
-Interact with AI Chat Assistant for booking, cancellation, or rescheduling
+💳 Pay fees and receive admin IDs after payment
 
-Pay fees and receive admin IDs after payment
+🔍 Search for VIPs by name or specialty
 
-Search for VIPs by name or specialty
+AI Chat Assistant
 
-AI Chat Assistant:
+🗨️ Conversational interface to guide clients
 
-Conversational interface to guide clients
+📅 Book, cancel, or reschedule appointments
 
-Book, cancel, or reschedule appointments
+✅ Check VIP availability
 
-Check VIP availability
+🤖 Supports multiple AI providers (Claude & OpenAI)
 
-Supports multiple AI providers (Claude & OpenAI)
+Profile Management
 
-Profile Management:
+👤 View personal and account information
 
-View personal and account information
+✏️ Edit profile including avatar, phone number, and address
 
-Edit profile including avatar, phone number, and address
+Navigation
 
-Navigation:
+🧭 Responsive navigation bar for quick access
 
-Responsive navigation bar for quick access
-
-Logout with confirmation modal
+🔒 Logout with confirmation modal
 
 🛠️ Technologies Used
 
@@ -57,31 +56,28 @@ Storage: localStorage for persisting chat and user data
 ⚙️ Getting Started
 Prerequisites
 
-Before you begin, ensure you have the following installed:
-
 Node.js (LTS version recommended)
 
 npm or yarn
 
 Installation
-
 git clone https://github.com/Ram-Bhatt08/Time-Bot-Client.git
 cd Time-Bot-Client
 npm install
 
 Run the Project
-
 npm run dev
+
 
 The application will run at http://localhost:5173.
 
-Make sure the backend server is running at http://localhost:5000
+Make sure the backend server is running at http://localhost:5000.
 
 🔗 Backend
 
-This is the frontend repository. The full functionality requires the corresponding backend.
+This is the frontend repository. Full functionality requires the corresponding backend.
 
-Make sure to set up the backend and configure the API endpoint in the frontend for proper functionality.
+Ensure the backend is set up and API endpoints are configured in the frontend.
 
 📂 Project Structure
 
@@ -116,33 +112,34 @@ Time-Bot-Frontend/ <br>
 ├── package.json <br>
 └── vite.config.js <br>
 
+
 🎮 How It Works
 
 Client Login: Users log in or register to access the platform.
 
-Book Appointment: Users select VIPs and book appointments.
+Book Appointment: Users select VIPs and schedule appointments.
 
-Interact with AI Assistant: Users can chat with the AI to book, cancel, or reschedule appointments.
+Interact with AI Assistant: Chat to book, cancel, or reschedule appointments.
 
-Payment & ID: Users pay fees and receive admin IDs after successful payment.
+Payment & ID: Pay fees and receive admin IDs after successful payment.
 
-Profile Management: Users can view and edit their profile and manage appointments.
+Profile Management: View & edit profile, manage appointments.
 
 📝 Future Enhancements
 
-Dark mode support
+🌙 Dark mode support
 
-Notification system for upcoming appointments
+🔔 Notification system for upcoming appointments
 
-AI assistant memory across sessions
+🧠 AI assistant memory across sessions
 
-Enhanced mobile responsiveness
+📱 Enhanced mobile responsiveness
 
-Integration with real payment gateways
+💳 Integration with real payment gateways
 
-Contributing
+🤝 Contributing
 
-We welcome contributions! Please follow these steps:
+We welcome contributions!
 
 Fork the repository
 
