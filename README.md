@@ -2,6 +2,7 @@
 
 Time-Bot is a modern AI-powered appointment scheduling platform that lets clients book, cancel, and reschedule appointments with admins (VIPs), interact with an AI assistant, and manage their profile. Built with React and Vite, Time-Bot delivers a seamless and intuitive user experience.
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 🚀 Features
 Client Features
 
@@ -14,6 +15,8 @@ Client Features
 💳 Pay fees and receive admin IDs after payment
 
 🔍 Search for VIPs by name or specialty
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 AI Chat Assistant
 
